@@ -1,18 +1,13 @@
 <template>
   <div>
+    <h1>Countries</h1>
     <select v-model="selectedContinent">
       <option value="">All</option>
       <option v-for="continent in continents" :value="continent">{{ continent }}</option>
     </select>
     <ul>
       <li v-for="country in filteredCountries" :key="country.alpha2Code">
-<router-link :to="'/country/' + country.name">{{ country.name }}</router-link>
-
-
-
- 
-
-
+        <router-link :to="'/country/' + country.alpha3Code">{{ country.name }}</router-link>
       </li>
     </ul>
   </div>
