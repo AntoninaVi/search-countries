@@ -6,11 +6,13 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     countries: [],
+    flags: {},
   },
   mutations: {
     setCountries(state, countries) {
       state.countries = countries;
     },
+    
   },
   actions: {
     async fetchCountries({ commit }) {

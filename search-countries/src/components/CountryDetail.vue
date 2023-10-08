@@ -8,6 +8,7 @@
     <p>Capital: {{ country.capital }}</p>
     <p>Top Level Domain: {{ country.tld }}</p>
     <p>Currencies: {{ country.currencies | currencyList }}</p>
+    
     <p>Languages: {{ country.languages | languageList }}</p>
     <p>Border Countries: 
       <ul>
