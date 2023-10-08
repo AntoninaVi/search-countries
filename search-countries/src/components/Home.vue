@@ -6,8 +6,8 @@
       <option v-for="continent in continents" :value="continent">{{ continent }}</option>
     </select>
     <ul>
-      <li v-for="country in filteredCountries" :key="country.alpha2Code">
-        <router-link :to="'/country/' + country.alpha3Code">{{ country.name }}</router-link>
+      <li v-for="country in filteredCountries" :key="country.cca3">
+        <router-link :to="'/country/' + country.cca3">{{ country.name.common }}</router-link>
       </li>
     </ul>
   </div>
@@ -15,7 +15,6 @@
 
 <script>
 export default {
-  name: 'Home',
   data() {
     return {
       selectedContinent: '',
