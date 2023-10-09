@@ -1,5 +1,10 @@
 <template>
   <div>
+    <img
+      :alt="`Flag of ${country.name.common}`"
+      class="image"
+      :src="country.flags.png"
+    />
     <h2>{{ country.name.common }}</h2>
     <p>Native Name: {{ country.name.native }}</p>
     <p>Population: {{ country.population }}</p>
@@ -7,10 +12,9 @@
     <p>Sub Region: {{ country.subregion }}</p>
     <p>Capital: {{ country.capital }}</p>
     <p>Top Level Domain: {{ country.tld }}</p>
-    <p>Currencies: {{ country.currencies | currencyList }}</p>
-    
-    <p>Languages: {{ country.languages | languageList }}</p>
-    <p>Border Countries: 
+    <p>Currencies: {{ getCurrenciesList(country.currencies) }}</p>
+    <p>Languages: {{ getLanguagesList(country.languages) }}</p>
+    <p>Border Countries:
       <ul>
         <li v-for="border in borderCountries" :key="border">
           <router-link :to="'/country/' + border">{{ getCountryNameByCode(border) }}</router-link>
@@ -37,13 +41,22 @@ export default {
       const country = this.$store.getters.getCountryByCode(code);
       return country ? country.name.common : code;
     },
-  },
-  filters: {
-    currencyList(currencies) {
-      return currencies ? Object.values(currencies).join(', ') : '';
+    getCurrenciesList(currencies) {
+      if (currencies) {
+        const currencyList = Object.values(currencies).map((currency) => {
+          return `${currency.name} (${currency.symbol})`;
+        });
+        return currencyList.join(', ');
+      } else {
+        return '';
+      }
     },
-    languageList(languages) {
-      return languages ? Object.values(languages).join(', ') : '';
+    getLanguagesList(languages) {
+      if (languages) {
+        return Object.values(languages).join(', ');
+      } else {
+        return '';
+      }
     },
   },
 };
