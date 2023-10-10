@@ -17,7 +17,7 @@
         <div class="country__info-items">
           <h2 class="country__title">{{ country.name.common }}</h2>
           <p class="country__info-item">
-            Native Name: {{ country.name.native }}
+            Native Name: {{ formatNativeName(country.name.nativeName) }}
           </p>
           <p class="country__info-item">Population: {{ country.population }}</p>
           <p class="country__info-item">Region: {{ country.region }}</p>
@@ -36,22 +36,20 @@
           </p>
         </div>
         <div class="country__info-borders">
-        Border Countries: 
-        <ul class="country__info-borders-list">
-          <li
-            class="country__info-borders-list-itel"
-            v-for="border in borderCountries"
-            :key="border"
-          >
-            <router-link :to="'/country/' + border">{{
-              getCountryNameByCode(border)
-            }}</router-link>
-          </li>
-        </ul>
+          Border Countries: &nbsp;
+          <ul class="country__info-borders-list">
+            <li
+              class="country__info-borders-list-item"
+              v-for="border in borderCountries"
+              :key="border"
+            >
+              <router-link :to="'/country/' + border">
+                {{ getCountryNameByCode(border) }}</router-link
+              >
+            </li>
+          </ul>
+        </div>
       </div>
-      </div>
-
-      
     </div>
   </div>
 </template>
@@ -90,6 +88,16 @@ export default {
         return "";
       }
     },
+    formatNativeName(nativeName) {
+      if (nativeName) {
+        const names = Object.values(nativeName).map(
+          (entry) => entry.common || entry.official
+        );
+        return names.join(", ");
+      } else {
+        return "N/A";
+      }
+    },
   },
 };
 </script>
@@ -98,11 +106,10 @@ export default {
   max-width: 1286px;
   margin-left: auto;
   margin-right: auto;
- 
 }
-a{
+a {
   text-decoration: none;
-    color: #111517;
+  color: #111517;
 }
 .country {
   &__flag {
@@ -120,12 +127,11 @@ a{
   }
 
   &__info {
-        display: grid;
+    display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    
   }
- &__info-items {
+  &__info-items {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
@@ -139,14 +145,40 @@ a{
     display: flex;
     grid-column: 2;
     align-items: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    white-space: nowrap;
   }
 
   &__info-borders-list {
     display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6em;
     list-style-type: none;
   }
 
-  &__info-borders-list-itel {
+  &__info-borders-list-item {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    border-radius: 2px;
+    border: 0px solid #979797;
+    background: #fff;
+    box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
   }
+}
+//back button
+.router-link-active {
+  display: flex;
+}
+.router-link-active::before {
+  content: url(/src/assets/img/arrow-back.svg);
+  max-width: 1.2em;
+  margin-right: 0.6em;
 }
 </style>

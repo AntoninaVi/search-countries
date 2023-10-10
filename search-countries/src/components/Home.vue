@@ -19,12 +19,14 @@
                 placeholder="Search for a country…"
               />
             </div>
-            <select class="main__filters-select" v-model="selectedContinent">
-              <option value="">All</option>
-              <option v-for="continent in continents" :value="continent">
-                {{ continent }}
-              </option>
-            </select>
+            <div class="main__filters-select-wrapper">
+              <v-select
+                class="main__filters-select"
+                :options="continents"
+                placeholder="Filter by Region"
+                label="Filter by Region"
+              ></v-select>
+            </div>
           </div>
 
           <ul class="main__list">
@@ -67,7 +69,13 @@
 </template>
 
 <script>
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
+
 export default {
+  components: {
+    vSelect,
+  },
   data() {
     return {
       selectedContinent: "",
@@ -210,8 +218,7 @@ a {
 
   &__filters-select {
     border-radius: 5px;
-    max-width: 12.5em;
-    width: 100%;
+    width: 15em;
     padding: 1.1em;
   }
 
@@ -258,5 +265,36 @@ a {
 
   &__list-button {
   }
+}
+.vs__dropdown-toggle {
+  border-radius: 5px;
+  border: none;
+  background: #fff;
+  box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
+}
+.vs__open-indicator {
+  color: #111517;
+}
+.vs--open.vs__dropdown-toggle {
+  border-radius: 5px;
+  border: none;
+  background: #fff;
+  box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
+}
+
+.vs__dropdown-menu {
+  width: 15em;
+  display: block;
+  list-style: none;
+  margin: 0;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
+  overflow-y: auto;
+  padding: 5px 0;
+  position: absolute;
+  text-align: left;
+  top: calc(100% - var(--vs-border-width));
+  z-index: var(--vs-dropdown-z-index);
 }
 </style>
