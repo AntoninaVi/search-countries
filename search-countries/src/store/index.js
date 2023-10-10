@@ -7,14 +7,11 @@ export default new Vuex.Store({
   state: {
     countries: [],
     flags: {},
-    darkMode: false,
+    
   },
   mutations: {
     setCountries(state, countries) {
       state.countries = countries;
-    },
-    toggleDarkMode(state) {
-      state.darkMode = !state.darkMode;
     },
     
   },
@@ -27,9 +24,6 @@ export default new Vuex.Store({
       } catch (error) {
         console.error('Error fetching countries:', error);
       }
-    },
-    toggleDarkMode({ commit }) {
-      commit('toggleDarkMode');
     },
   },
   getters: {
