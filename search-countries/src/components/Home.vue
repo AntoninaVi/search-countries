@@ -264,6 +264,20 @@ a {
   }
 
   &__list-button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3em;
+        padding: 1em;
+    background-color: transparent;
+    border: 1px solid #bcbdbe;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    &:hover{
+       background-color: #d8dadc;
+       transition: ease-in 0.3s;
+    }
   }
 }
 .vs__dropdown-toggle {

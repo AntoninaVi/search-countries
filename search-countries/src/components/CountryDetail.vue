@@ -16,38 +16,61 @@
         />
         <div class="country__info-items">
           <h2 class="country__title">{{ country.name.common }}</h2>
-          <p class="country__info-item">
-            Native Name: {{ formatNativeName(country.name.nativeName) }}
-          </p>
-          <p class="country__info-item">Population: {{ country.population }}</p>
-          <p class="country__info-item">Region: {{ country.region }}</p>
-          <p class="country__info-item">Sub Region: {{ country.subregion }}</p>
-          <p class="country__info-item">
-            Capital: {{ country.capital.join(", ") }}
-          </p>
-          <p class="country__info-item">
-            Top Level Domain: {{ country.tld.join(", ") }}
-          </p>
-          <p class="country__info-item">
-            Currencies: {{ getCurrenciesList(country.currencies) }}
-          </p>
-          <p class="country__info-item">
-            Languages: {{ getLanguagesList(country.languages) }}
-          </p>
-        </div>
-        <div class="country__info-borders">
-          Border Countries: &nbsp;
-          <ul class="country__info-borders-list">
-            <li
-              class="country__info-borders-list-item"
-              v-for="border in borderCountries"
-              :key="border"
-            >
-              <router-link :to="'/country/' + border">
-                {{ getCountryNameByCode(border) }}</router-link
+          <div class="country__info-items-text">
+            <p class="country__info-item">
+              Native Name: {{ formatNativeName(country.name.nativeName) }}
+            </p>
+            <p class="country__info-item">
+              Population:
+              <span class="country__info-data">{{ country.population }}</span>
+            </p>
+            <p class="country__info-item">
+              Region:
+              <span class="country__info-data">{{ country.region }}</span>
+            </p>
+            <p class="country__info-item">
+              Sub Region:
+              <span class="country__info-data">{{ country.subregion }}</span>
+            </p>
+            <p class="country__info-item">
+              Capital:
+              <span class="country__info-data">{{
+                country.capital.join(", ")
+              }}</span>
+            </p>
+            <p class="country__info-item">
+              Top Level Domain:
+              <span class="country__info-data">{{
+                country.tld.join(", ")
+              }}</span>
+            </p>
+            <p class="country__info-item">
+              Currencies:
+              <span class="country__info-data">{{
+                getCurrenciesList(country.currencies)
+              }}</span>
+            </p>
+            <p class="country__info-item">
+              Languages:
+              <span class="country__info-data">{{
+                getLanguagesList(country.languages)
+              }}</span>
+            </p>
+          </div>
+          <div class="country__info-borders">
+            Border Countries: &nbsp;
+            <ul class="country__info-borders-list">
+              <li
+                class="country__info-borders-list-item"
+                v-for="border in borderCountries"
+                :key="border"
               >
-            </li>
-          </ul>
+                <router-link :to="'/country/' + border">
+                  {{ getCountryNameByCode(border) }}</router-link
+                >
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -106,24 +129,29 @@ export default {
   max-width: 1286px;
   margin-left: auto;
   margin-right: auto;
+  padding-bottom: 3em;
 }
 a {
   text-decoration: none;
   color: #111517;
 }
+
 .country {
   &__flag {
     max-width: 35em;
     width: 100%;
     height: 25em;
     margin-right: 7.5em;
-    margin-top: 5.6em;
+    margin-top: 3em;
+    box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.03);
+    border-radius: 5px;
   }
 
   &__title {
     font-size: 32px;
     font-style: normal;
     font-weight: 800;
+    margin-bottom: 1.4em;
   }
 
   &__info {
@@ -131,14 +159,26 @@ a {
     grid-template-columns: 1fr 1fr;
     align-items: center;
   }
+  &__info-data {
+    font-weight: 300;
+    line-height: 32px;
+  }
   &__info-items {
+    display: flex;
+    flex-direction: column;
+    align-self: end;
+  }
+  &__info-items-text {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    column-gap: 4em;
+    margin-bottom: 4.2em;
   }
   &__info-item {
     font-size: 16px;
     font-weight: 600;
     line-height: 32px;
+    white-space: nowrap;
   }
 
   &__info-borders {
