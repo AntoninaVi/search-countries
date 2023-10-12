@@ -1,15 +1,11 @@
 <template>
   <div>
-    <nav class="main__navbar">
-      <div class="main__navbar-content">
-        <h1 class="main__title">Where in the world?</h1>
-      </div>
-    </nav>
-
-    <div class="container">
-      <router-link to="/">Back</router-link>
-      <div class="country__info">
-        <img
+  
+    <div class="country__container">
+      <router-link to="/"> <span class="country__button-back">Back</span> </router-link>
+      <div class="country__info" v-if="country">
+          <img
+          v-if="country"
           :alt="`Flag of ${country}`"
           class="country__flag"
           :src="country.flags.png"
@@ -83,13 +79,21 @@ export default {
   computed: {
     country() {
       const countryCode = this.$route.params.code;
-      return this.$store.getters.getCountryByCode(countryCode);
+
+       return this.$store.getters.getCountryByCode(countryCode) || this.loadCountryFromLocalStorage(countryCode);
     },
     borderCountries() {
       return this.country.borders || [];
     },
   },
   methods: {
+    loadCountryFromLocalStorage(countryCode) {
+      const countryData = localStorage.getItem(`country_${countryCode}`);
+      if (countryData) {
+        return JSON.parse(countryData);
+      }
+      return null;
+    },
     getCountryNameByCode(code) {
       const country = this.$store.getters.getCountryByCode(code);
       return country ? country.name.common : code;
@@ -122,10 +126,20 @@ export default {
       }
     },
   },
+  watch: {
+    country: {
+      handler(newVal) {
+        if (newVal) {
+          localStorage.setItem(`country_${newVal.cca3}`, JSON.stringify(newVal));
+        }
+      },
+      deep: true,
+    },
+  },
 };
 </script>
 <style lang="scss">
-.container {
+.country__container {
   max-width: 1286px;
   margin-left: auto;
   margin-right: auto;
@@ -140,7 +154,8 @@ a {
   &__flag {
     max-width: 35em;
     width: 100%;
-    height: 25em;
+    min-height: 25em;
+    max-height: 25em;
     margin-right: 7.5em;
     margin-top: 3em;
     box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.03);
@@ -156,7 +171,7 @@ a {
 
   &__info {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 50% 45%;
     align-items: center;
   }
   &__info-data {
@@ -212,9 +227,22 @@ a {
     padding: 5px 10px;
   }
 }
+.country__info-borders-list-item a {
+  color: #111517;
+}
+.v-application a {
+    color: #72838b !important; 
+}
 //back button
+.country__button-back{
+  color: #111517;
+font-size: 16px;
+font-weight: 300;
+line-height: 20px;
+}
 .router-link-active {
   display: flex;
+    margin: 3em 0;
 }
 .router-link-active::before {
   content: url(/src/assets/img/arrow-back.svg);

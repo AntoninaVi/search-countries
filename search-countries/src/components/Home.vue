@@ -2,14 +2,6 @@
   <div>
     <div :class="{ dark: darkMode, light: !darkMode }">
       <div class="wrapper">
-        <nav class="main__navbar">
-          <div class="main__navbar-content">
-            <h1 class="main__title">Where in the world?</h1>
-            <button class="main__theme-toggle" @click="toggleDarkMode">
-              {{ darkMode ? "Light Mode" : "Dark Mode" }}
-            </button>
-          </div>
-        </nav>
         <div class="container">
           <div class="main__filters">
             <div class="main__filters-search">
@@ -18,15 +10,19 @@
                 v-model="searchTerm"
                 placeholder="Search for a country…"
               />
+              <span class="main__filters-search-input-el"></span>
             </div>
-            <div class="main__filters-select-wrapper">
+            <v-col cols="6" md="6" lg="2" class="main__filters-select-wrapper">
               <v-select
-                class="main__filters-select"
-                :options="continents"
-                placeholder="Filter by Region"
+                v-model="selectedContinent"
+                :items="continents"
                 label="Filter by Region"
+                hide-selected
+                dense
+                solo
+                class="main__filters-select"
               ></v-select>
-            </div>
+            </v-col>
           </div>
 
           <ul class="main__list">
@@ -69,13 +65,8 @@
 </template>
 
 <script>
-import vSelect from "vue-select";
-import "vue-select/dist/vue-select.css";
-
 export default {
-  components: {
-    vSelect,
-  },
+  components: {},
   data() {
     return {
       selectedContinent: "",
@@ -127,32 +118,12 @@ export default {
 </script>
 
 <style lang="scss">
-:root {
-  --background-color-light: #6a47e6;
-  --text-color-light: #333;
-  --background-color-dark: #362022;
-  --text-color-dark: rgb(255, 255, 255);
-}
-
 body {
   font-family: "Nunito Sans", sans-serif;
-}
-
-body.light {
   color: #111517;
-  background-color: rgb(229, 145, 236);
+  font-style: normal;
 }
 
-body.dark {
-  background-color: cornflowerblue;
-}
-.wrapper.light {
-  background-color: #fafafa;
-}
-
-.wrapper.dark {
-  background-color: crimson;
-}
 .container {
   max-width: 1440px;
   width: 100%;
@@ -163,36 +134,14 @@ a {
   text-decoration: none;
   color: #111517;
 }
+
 .main {
-  &__navbar {
-    padding: 1.4em;
-    background: #fff;
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
-    margin-bottom: 3em;
-  }
-  &__navbar-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1286px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  &__theme-toggle {
-  }
-
-  &__title {
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 800;
-    line-height: normal;
-  }
-
   &__filters {
     display: flex;
     align-items: center;
-    margin-bottom: 3em;
     max-width: 1286px;
+    margin-top: 2em;
+    margin-bottom: 3em;
     margin-left: auto;
     margin-right: auto;
   }
@@ -201,9 +150,10 @@ a {
     border-radius: 5px;
     width: 100%;
     &-input {
+      position: relative;
       max-width: 30em;
       width: 100%;
-      padding: 1.1em;
+      padding: 1.1em 1.1em 1.1em 3em;
       font-size: 14px;
       font-style: normal;
       font-weight: 400;
@@ -213,6 +163,18 @@ a {
       background: #fff;
       box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
       border: none;
+      &-el {
+        background-image: url(/src/assets/img/search.svg);
+        background-position: center;
+        background-repeat: no-repeat;
+        display: block;
+        position: absolute;
+        top: 5em;
+        left: 7%;
+        width: 1.2em;
+        height: 1.2em;
+        color: #848484;
+      }
     }
   }
 
@@ -225,7 +187,7 @@ a {
   &__list {
     list-style-type: none;
     display: grid;
-    grid-template-columns: 16.5em 16.5em 16.5em 16.5em;
+    grid-template-columns: 16em 16em 16em 16em;
     gap: 4.6em;
     justify-content: center;
     max-width: 1286px;
@@ -244,11 +206,14 @@ a {
       width: 100%;
       height: 10em;
       margin-bottom: 1.5em;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
     }
   }
 
   &__list-item-info {
-    padding-left: 1.5em;
+    padding-left: 1.4em;
+
     &-title {
       font-size: 18px;
       line-height: 26px;
@@ -268,18 +233,20 @@ a {
     margin-left: auto;
     margin-right: auto;
     margin-top: 3em;
-        padding: 1em;
+    width: 10em;
+    padding: 1em;
     background-color: transparent;
-    border: 1px solid #bcbdbe;
-    border-radius: 10px;
+    box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.10);
+    border-radius: 6px;
     cursor: pointer;
     font-weight: 600;
-    &:hover{
-       background-color: #d8dadc;
-       transition: ease-in 0.3s;
+    &:hover {
+      background-color: #dddddd;
+      transition: ease-in 0.3s;
     }
   }
 }
+//dropdown menu
 .vs__dropdown-toggle {
   border-radius: 5px;
   border: none;
