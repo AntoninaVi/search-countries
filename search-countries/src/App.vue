@@ -3,28 +3,32 @@
     <v-app-bar>
       <v-spacer>
         <div class="container">
-           <nav class="main__navbar">
-          <div class="main__navbar-content">
-            <h1 class="main__title">Where in the world?</h1>
-              <v-btn @click="toggleTheme">Toggle Theme</v-btn>
-          </div>
-        </nav>
+          <nav class="main__navbar">
+            <div class="main__navbar-content">
+              <h1 class="main__title">Where in the world?</h1>
+              <v-btn icon v-if="!$vuetify.theme.dark" @click="toggleTheme()">
+                <v-icon class="mr-1" color="blue-grey darken-4"
+                  >mdi-lightbulb</v-icon
+                >
+              </v-btn>
+              <v-btn icon v-if="$vuetify.theme.dark" @click="toggleTheme()">
+                <v-icon color="yellow darken-3">mdi-lightbulb-outline</v-icon>
+              </v-btn>
+            </div>
+          </nav>
         </div>
-        
       </v-spacer>
-      
-   
     </v-app-bar>
 
     <v-main>
-      <router-view/>
+      <router-view />
     </v-main>
   </v-app>
 </template>
 
 <script>
 export default {
-  name: 'App',
+  name: "App",
 
   methods: {
     toggleTheme() {
@@ -36,7 +40,7 @@ export default {
 <style lang="scss">
 .main {
   &__navbar {
-  max-width: 1286px;
+    max-width: 1286px;
     margin-left: auto;
     margin-right: auto;
   }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div :class="{ dark: darkMode, light: !darkMode }">
-      <div class="wrapper">
+      <div class="wrapper background">
         <div class="container">
           <div class="main__filters">
             <div class="main__filters-search">
@@ -27,18 +27,24 @@
 
           <ul class="main__list">
             <li
-              class="main__list-item"
+              class="main__list-item primary"
               v-for="country in displayedCountries"
               :key="country.cca3"
             >
-              <router-link :to="'/country/' + country.cca3">
-                <img
+            
+              <router-link :to="'/country/' + country.cca3"  >
+               <img
                   :alt="`Flag of ${country.name.common}`"
-                  class="main__list-item-flag"
+                  class="main__list-item-flag "
                   :src="country.flags.png"
                 />
+              
               </router-link>
-              <div class="main__list-item-info">
+               
+              <div
+                class="main__list-item-info"
+              
+              >
                 <p class="main__list-item-info-title">
                   {{ country.name.common }}
                 </p>
@@ -118,6 +124,11 @@ export default {
 </script>
 
 <style lang="scss">
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 body {
   font-family: "Nunito Sans", sans-serif;
   color: #111517;
@@ -138,7 +149,6 @@ a {
 .main {
   &__filters {
     display: flex;
-    align-items: center;
     max-width: 1286px;
     margin-top: 2em;
     margin-bottom: 3em;
@@ -169,8 +179,7 @@ a {
         background-repeat: no-repeat;
         display: block;
         position: absolute;
-        top: 5em;
-        left: 7%;
+        top: 3.7em;
         width: 1.2em;
         height: 1.2em;
         color: #848484;
@@ -187,7 +196,7 @@ a {
   &__list {
     list-style-type: none;
     display: grid;
-    grid-template-columns: 16em 16em 16em 16em;
+grid-template-columns: repeat(4, minmax(16em, 16em));
     gap: 4.6em;
     justify-content: center;
     max-width: 1286px;
@@ -198,21 +207,21 @@ a {
   &__list-item {
     display: block;
     border-radius: 5px;
-    background: #fff;
     box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.03);
 
     &-flag {
       max-width: 16.5em;
       width: 100%;
       height: 10em;
-      margin-bottom: 1.5em;
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
     }
   }
 
   &__list-item-info {
+    padding-top: 1.5em;
     padding-left: 1.4em;
+    padding-bottom: 3em;
 
     &-title {
       font-size: 18px;
@@ -236,7 +245,7 @@ a {
     width: 10em;
     padding: 1em;
     background-color: transparent;
-    box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.10);
+    box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.1);
     border-radius: 6px;
     cursor: pointer;
     font-weight: 600;
@@ -245,6 +254,13 @@ a {
       transition: ease-in 0.3s;
     }
   }
+}
+.wrapper .theme--dark{
+background-color: #202C36;
+}
+.main__list-item-info .theme--dark{
+  background: #2B3844;
+  color: #FFF;
 }
 //dropdown menu
 .vs__dropdown-toggle {

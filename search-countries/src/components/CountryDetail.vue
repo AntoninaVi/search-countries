@@ -1,8 +1,12 @@
 <template>
   <div>
-  
     <div class="country__container">
-      <router-link to="/"> <span class="country__button-back">Back</span> </router-link>
+   <router-link to="/" class="primary">
+  <span class="country__button-back">
+    Back
+  </span>
+</router-link>
+
       <div class="country__info" v-if="country">
           <img
           v-if="country"
@@ -57,11 +61,11 @@
             Border Countries: &nbsp;
             <ul class="country__info-borders-list">
               <li
-                class="country__info-borders-list-item"
+                class="country__info-borders-list-item primary"
                 v-for="border in borderCountries"
                 :key="border"
               >
-                <router-link :to="'/country/' + border">
+                <router-link :to="'/country/' + border" >
                   {{ getCountryNameByCode(border) }}</router-link
                 >
               </li>
@@ -149,6 +153,7 @@ a {
   text-decoration: none;
   color: #111517;
 }
+
 
 .country {
   &__flag {
@@ -239,10 +244,19 @@ a {
 font-size: 16px;
 font-weight: 300;
 line-height: 20px;
+
 }
 .router-link-active {
   display: flex;
+  justify-content: center;
+  align-items: unset;
     margin: 3em 0;
+    max-width: 7.5em;
+width: 100%;
+padding: 0.7em 0 0.3em;
+border-radius: 6px;
+box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.29);
+
 }
 .router-link-active::before {
   content: url(/src/assets/img/arrow-back.svg);
