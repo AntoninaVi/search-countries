@@ -2,7 +2,7 @@
   <div>
     <div :class="{ dark: darkMode, light: !darkMode }">
       <div class="wrapper background">
-        <div class="container">
+        <div class="main__container">
           <div class="main__filters">
             <div class="main__filters-search">
               <input
@@ -135,7 +135,7 @@ body {
   font-style: normal;
 }
 
-.container {
+.main__container {
   max-width: 1440px;
   width: 100%;
   margin-left: auto;
