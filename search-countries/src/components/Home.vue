@@ -6,13 +6,13 @@
           <div class="main__filters">
             <div class="main__filters-search">
               <input
-                class="main__filters-search-input"
+                class="main__filters-search-input primary"
                 v-model="searchTerm"
                 placeholder="Search for a country…"
               />
               <span class="main__filters-search-input-el"></span>
             </div>
-            <v-col cols="6" md="6" lg="2" class="main__filters-select-wrapper">
+            <v-col cols="6" md="6" lg="2" class="main__filters-select-wrapper ">
               <v-select
                 v-model="selectedContinent"
                 :items="continents"
@@ -25,26 +25,21 @@
             </v-col>
           </div>
 
-          <ul class="main__list">
-            <li
+          <div class="main__list">
+            <div
               class="main__list-item primary"
               v-for="country in displayedCountries"
               :key="country.cca3"
             >
-            
-              <router-link :to="'/country/' + country.cca3"  >
-               <img
+              <router-link :to="'/country/' + country.cca3">
+                <img
                   :alt="`Flag of ${country.name.common}`"
-                  class="main__list-item-flag "
+                  class="main__list-item-flag"
                   :src="country.flags.png"
                 />
-              
               </router-link>
-               
-              <div
-                class="main__list-item-info"
-              
-              >
+
+              <div class="main__list-item-info">
                 <p class="main__list-item-info-title">
                   {{ country.name.common }}
                 </p>
@@ -58,12 +53,12 @@
                   Capital: {{ country.capital.join(", ") }}
                 </p>
               </div>
-            </li>
-          </ul>
+            </div>
+          </div>
           <p v-if="filteredCountries.length === 0">
             Sorry, country wasn't found
           </p>
-          <button class="main__list-button" @click="showMore">Show More</button>
+          <button class="main__list-button primary" @click="showMore">Show More</button>
         </div>
       </div>
     </div>
@@ -124,7 +119,7 @@ export default {
 </script>
 
 <style lang="scss">
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -140,6 +135,7 @@ body {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+  padding: 1em 0; 
 }
 a {
   text-decoration: none;
@@ -179,7 +175,8 @@ a {
         background-repeat: no-repeat;
         display: block;
         position: absolute;
-        top: 3.7em;
+        top: 4em;
+        margin-left: 1%;
         width: 1.2em;
         height: 1.2em;
         color: #848484;
@@ -196,7 +193,7 @@ a {
   &__list {
     list-style-type: none;
     display: grid;
-grid-template-columns: repeat(4, minmax(16em, 16em));
+    grid-template-columns: repeat(4, minmax(16.5em, 16em));
     gap: 4.6em;
     justify-content: center;
     max-width: 1286px;
@@ -255,13 +252,7 @@ grid-template-columns: repeat(4, minmax(16em, 16em));
     }
   }
 }
-.wrapper .theme--dark{
-background-color: #202C36;
-}
-.main__list-item-info .theme--dark{
-  background: #2B3844;
-  color: #FFF;
-}
+
 //dropdown menu
 .vs__dropdown-toggle {
   border-radius: 5px;

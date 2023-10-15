@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar>
       <v-spacer>
-        <div class="container">
+        <div class="main__container primary">
           <nav class="main__navbar">
             <div class="main__navbar-content">
               <h1 class="main__title">Where in the world?</h1>
