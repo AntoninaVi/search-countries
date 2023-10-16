@@ -1,75 +1,75 @@
 <template>
   <div>
-    <div class="country__container">
-   <router-link to="/" class="primary">
-  <span class="country__button-back">
-    Back
-  </span>
-</router-link>
+    <div class="wrapper background">
+      <div class="country__container background">
+        <router-link to="/" class="primary">
+          <span class="country__button-back primary"> Back </span>
+        </router-link>
 
-      <div class="country__info" v-if="country">
+        <div class="country__info" v-if="country">
           <img
-          v-if="country"
-          :alt="`Flag of ${country}`"
-          class="country__flag"
-          :src="country.flags.png"
-        />
-        <div class="country__info-items">
-          <h2 class="country__title">{{ country.name.common }}</h2>
-          <div class="country__info-items-text">
-            <p class="country__info-item">
-              Native Name: {{ formatNativeName(country.name.nativeName) }}
-            </p>
-            <p class="country__info-item">
-              Population:
-              <span class="country__info-data">{{ country.population }}</span>
-            </p>
-            <p class="country__info-item">
-              Region:
-              <span class="country__info-data">{{ country.region }}</span>
-            </p>
-            <p class="country__info-item">
-              Sub Region:
-              <span class="country__info-data">{{ country.subregion }}</span>
-            </p>
-            <p class="country__info-item">
-              Capital:
-              <span class="country__info-data">{{
-                country.capital.join(", ")
-              }}</span>
-            </p>
-            <p class="country__info-item">
-              Top Level Domain:
-              <span class="country__info-data">{{
-                country.tld.join(", ")
-              }}</span>
-            </p>
-            <p class="country__info-item">
-              Currencies:
-              <span class="country__info-data">{{
-                getCurrenciesList(country.currencies)
-              }}</span>
-            </p>
-            <p class="country__info-item">
-              Languages:
-              <span class="country__info-data">{{
-                getLanguagesList(country.languages)
-              }}</span>
-            </p>
-          </div>
-          <div class="country__info-borders">
-            Border Countries: &nbsp;
-            <ul class="country__info-borders-list">
-              <li
-                class="country__info-borders-list-item primary"
-                v-for="border in borderCountries"
-                :key="border"
-              >
-                <router-link :to="'/country/' + border" >
-                  {{ getCountryNameByCode(border) }}</router-link
+            v-if="country"
+            :alt="`Flag of ${country}`"
+            class="country__flag"
+            :src="country.flags.png"
+          />
+          <div class="country__info-items">
+            <h2 class="country__title">{{ country.name.common }}</h2>
+            <div class="country__info-items-text">
+              <p class="country__info-item">
+                Native Name: {{ formatNativeName(country.name.nativeName) }}
+              </p>
+              <p class="country__info-item">
+                Population:
+                <span class="country__info-data">{{ country.population }}</span>
+              </p>
+              <p class="country__info-item">
+                Region:
+                <span class="country__info-data">{{ country.region }}</span>
+              </p>
+              <p class="country__info-item">
+                Sub Region:
+                <span class="country__info-data">{{ country.subregion }}</span>
+              </p>
+              <p class="country__info-item">
+                Capital:
+                <span class="country__info-data">{{
+                  country.capital.join(", ")
+                }}</span>
+              </p>
+              <p class="country__info-item">
+                Top Level Domain:
+                <span class="country__info-data">{{
+                  country.tld.join(", ")
+                }}</span>
+              </p>
+              <p class="country__info-item">
+                Currencies:
+                <span class="country__info-data">{{
+                  getCurrenciesList(country.currencies)
+                }}</span>
+              </p>
+              <p class="country__info-item">
+                Languages:
+                <span class="country__info-data">{{
+                  getLanguagesList(country.languages)
+                }}</span>
+              </p>
+            </div>
+            <div class="country__info-borders">
+              Border Countries: &nbsp;
+              <ul class="country__info-borders-list">
+                <li
+                  class="country__info-borders-list-item primary"
+                  v-for="border in borderCountries"
+                  :key="border"
                 >
-              </li>
-            </ul>
+                  <router-link :to="'/country/' + border">
+                    {{ getCountryNameByCode(border) }}</router-link
+                  >
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -84,7 +84,10 @@ export default {
     country() {
       const countryCode = this.$route.params.code;
 
-       return this.$store.getters.getCountryByCode(countryCode) || this.loadCountryFromLocalStorage(countryCode);
+      return (
+        this.$store.getters.getCountryByCode(countryCode) ||
+        this.loadCountryFromLocalStorage(countryCode)
+      );
     },
     borderCountries() {
       return this.country.borders || [];
@@ -134,7 +137,10 @@ export default {
     country: {
       handler(newVal) {
         if (newVal) {
-          localStorage.setItem(`country_${newVal.cca3}`, JSON.stringify(newVal));
+          localStorage.setItem(
+            `country_${newVal.cca3}`,
+            JSON.stringify(newVal)
+          );
         }
       },
       deep: true,
@@ -147,13 +153,13 @@ export default {
   max-width: 1286px;
   margin-left: auto;
   margin-right: auto;
+  padding-top:2em ;
   padding-bottom: 3em;
 }
 a {
   text-decoration: none;
   color: #111517;
 }
-
 
 .country {
   &__flag {
@@ -236,27 +242,25 @@ a {
   color: #111517;
 }
 .v-application a {
-    color: #72838b !important; 
+  color: #72838b !important;
 }
 //back button
-.country__button-back{
+.country__button-back {
   color: #111517;
-font-size: 16px;
-font-weight: 300;
-line-height: 20px;
-
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 20px;
 }
 .router-link-active {
   display: flex;
   justify-content: center;
   align-items: unset;
-    margin: 3em 0;
-    max-width: 7.5em;
-width: 100%;
-padding: 0.7em 0 0.3em;
-border-radius: 6px;
-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.29);
-
+  margin: 3em 0;
+  max-width: 7.5em;
+  width: 100%;
+  padding: 0.7em 0 0.3em;
+  border-radius: 6px;
+  box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.29);
 }
 .router-link-active::before {
   content: url(/src/assets/img/arrow-back.svg);

@@ -1,8 +1,9 @@
 <template>
   <v-app>
-    <v-app-bar>
-      <v-spacer>
-        <div class="main__container primary">
+    <v-app-bar class="primary">
+      <v-spacer >
+        <header>
+           <div class="main__container primary">
           <nav class="main__navbar">
             <div class="main__navbar-content">
               <h1 class="main__title">Where in the world?</h1>
@@ -17,6 +18,8 @@
             </div>
           </nav>
         </div>
+        </header>
+       
       </v-spacer>
     </v-app-bar>
 
@@ -38,6 +41,7 @@ export default {
 };
 </script>
 <style lang="scss">
+
 .main {
   &__navbar {
     max-width: 1286px;
