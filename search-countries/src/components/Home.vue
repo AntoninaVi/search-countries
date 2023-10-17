@@ -12,16 +12,31 @@
               />
               <span class="main__filters-search-input-el"></span>
             </div>
-            <v-col cols="6" md="6" lg="2" class="main__filters-select-wrapper ">
-              <v-select
-                v-model="selectedContinent"
-                :items="continents"
-                label="Filter by Region"
-                hide-selected
-                dense
-                solo
-                class="main__filters-select"
-              ></v-select>
+            <v-col cols="6" md="6" lg="2" class="main__filters-select-wrapper">
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="selectedContinent"
+                    label="Filter by Region"
+                    dense
+                    solo
+                    v-bind="attrs"
+                    v-on="on"
+                    class=""
+                    append-icon="mdi-chevron-down"
+                  >
+                  </v-text-field>
+                </template>
+                <v-list class="primary">
+                  <v-list-item
+                    v-for="continent in continents"
+                    :key="continent"
+                    @click="selectContinent(continent)"
+                  >
+                    <v-list-item-title>{{ continent }}</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
             </v-col>
           </div>
 
@@ -58,7 +73,9 @@
           <p v-if="filteredCountries.length === 0">
             Sorry, country wasn't found
           </p>
-          <button class="main__list-button primary" @click="showMore">Show More</button>
+          <button class="main__list-button primary" @click="showMore">
+            Show More
+          </button>
         </div>
       </div>
     </div>
@@ -111,6 +128,9 @@ export default {
       this.darkMode = !this.darkMode;
       console.log("Dark mode is now:", this.darkMode);
     },
+    selectContinent(continent) {
+      this.selectedContinent = continent;
+    },
   },
   created() {
     this.$store.dispatch("fetchCountries");
@@ -135,7 +155,7 @@ body {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding: 1em 0; 
+  padding: 1em 0;
 }
 a {
   text-decoration: none;
@@ -182,12 +202,6 @@ a {
         color: #848484;
       }
     }
-  }
-
-  &__filters-select {
-    border-radius: 5px;
-    width: 15em;
-    padding: 1.1em;
   }
 
   &__list {
@@ -251,38 +265,5 @@ a {
       transition: ease-in 0.3s;
     }
   }
-}
-
-//dropdown menu
-.vs__dropdown-toggle {
-  border-radius: 5px;
-  border: none;
-  background: #fff;
-  box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
-}
-.vs__open-indicator {
-  color: #111517;
-}
-.vs--open.vs__dropdown-toggle {
-  border-radius: 5px;
-  border: none;
-  background: #fff;
-  box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
-}
-
-.vs__dropdown-menu {
-  width: 15em;
-  display: block;
-  list-style: none;
-  margin: 0;
-  border-radius: 5px;
-  background: #fff;
-  box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
-  overflow-y: auto;
-  padding: 5px 0;
-  position: absolute;
-  text-align: left;
-  top: calc(100% - var(--vs-border-width));
-  z-index: var(--vs-dropdown-z-index);
 }
 </style>
