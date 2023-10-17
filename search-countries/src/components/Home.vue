@@ -59,13 +59,24 @@
                   {{ country.name.common }}
                 </p>
                 <p class="main__list-item-info-text">
-                  Population: {{ country.population }}
+                  <span class="main__list-item-info-text-label"
+                    >Population: </span
+                  >
+                  <span class="main__list-item-info-text-value">{{
+                    country.population
+                  }}</span>
                 </p>
                 <p class="main__list-item-info-text">
-                  Region: {{ country.region }}
+                  <span class="main__list-item-info-text-label">Region: </span>
+                  <span class="main__list-item-info-text-value">{{
+                    country.region
+                  }}</span>
                 </p>
                 <p class="main__list-item-info-text">
-                  Capital: {{ country.capital.join(", ") }}
+                  <span class="main__list-item-info-text-label">Capital: </span>
+                  <span class="main__list-item-info-text-value">{{
+                    country.capital.join(", ")
+                  }}</span>
                 </p>
               </div>
             </div>
@@ -175,6 +186,7 @@ a {
   &__filters-search {
     border-radius: 5px;
     width: 100%;
+
     &-input {
       position: relative;
       max-width: 30em;
@@ -187,8 +199,9 @@ a {
       color: #848484;
       border-radius: 5px;
       background: #fff;
-      box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
       border: none;
+      box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+        0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
       &-el {
         background-image: url(/src/assets/img/search.svg);
         background-position: center;
@@ -245,6 +258,12 @@ a {
       font-weight: 600;
       line-height: 16px;
       margin-bottom: 0.5em;
+      &-label {
+        font-weight: 600;
+      }
+      &-value {
+        font-weight: 300;
+      }
     }
   }
 

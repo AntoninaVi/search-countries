@@ -3,7 +3,12 @@
     <div class="wrapper background">
       <div class="country__container background">
         <router-link to="/" class="primary">
-          <span class="country__button-back primary"> Back </span>
+          <span class="country__button-back">
+            <i class="material-icons">arrow_back</i>
+            <span :class="[$vuetify.theme.dark ? 'white--text' : 'primary']">
+              Back
+            </span>
+          </span>
         </router-link>
 
         <div class="country__info" v-if="country">
@@ -60,7 +65,8 @@
               Border Countries: &nbsp;
               <ul class="country__info-borders-list">
                 <li
-                  class="country__info-borders-list-item primary"
+                  class="country__info-borders-list-item primary "
+                   :class="{ primary: $vuetify.theme.dark }"
                   v-for="border in borderCountries"
                   :key="border"
                 >
@@ -153,7 +159,7 @@ export default {
   max-width: 1286px;
   margin-left: auto;
   margin-right: auto;
-  padding-top:2em ;
+  padding-top: 2em;
   padding-bottom: 3em;
 }
 a {
@@ -246,10 +252,18 @@ a {
 }
 //back button
 .country__button-back {
+  display: flex;
+  align-items: center;
   color: #111517;
   font-size: 16px;
   font-weight: 300;
   line-height: 20px;
+}
+.country__button-back i {
+  color: #fff;
+}
+.theme--light .country__button-back i {
+  color: #111517;
 }
 .router-link-active {
   display: flex;
@@ -258,13 +272,11 @@ a {
   margin: 3em 0;
   max-width: 7.5em;
   width: 100%;
-  padding: 0.7em 0 0.3em;
+  padding: 0.7em;
   border-radius: 6px;
   box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.29);
 }
-.router-link-active::before {
-  content: url(/src/assets/img/arrow-back.svg);
-  max-width: 1.2em;
-  margin-right: 0.6em;
+.material-icons{
+  margin-right: 0.6rem;
 }
 </style>
