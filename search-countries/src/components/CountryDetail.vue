@@ -65,8 +65,8 @@
               Border Countries: &nbsp;
               <ul class="country__info-borders-list">
                 <li
-                  class="country__info-borders-list-item primary "
-                   :class="{ primary: $vuetify.theme.dark }"
+                  class="country__info-borders-list-item primary"
+                  :class="{ primary: $vuetify.theme.dark }"
                   v-for="border in borderCountries"
                   :key="border"
                 >
@@ -155,12 +155,13 @@ export default {
 };
 </script>
 <style lang="scss">
+
 .country__container {
   max-width: 1286px;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 2em;
-  padding-bottom: 3em;
+  padding: 2em 1em;
+ 
 }
 a {
   text-decoration: none;
@@ -276,7 +277,7 @@ a {
   border-radius: 6px;
   box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.29);
 }
-.material-icons{
+.material-icons {
   margin-right: 0.6rem;
 }
 </style>

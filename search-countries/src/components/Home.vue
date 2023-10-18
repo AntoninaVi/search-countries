@@ -12,7 +12,7 @@
               />
               <span class="main__filters-search-input-el"></span>
             </div>
-            <v-col cols="6" md="6" lg="2" class="main__filters-select-wrapper">
+            <v-col cols="6" md="6" lg="2" class="main__filters-select-wrapper custom-select ">
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
@@ -160,18 +160,23 @@ body {
   color: #111517;
   font-style: normal;
 }
-
+.custom-select{
+  padding: 0 !important;
+  flex-basis: max-content !important;
+}
 .main__container {
   max-width: 1440px;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding: 1em 0;
+  padding: 1em;
 }
 a {
   text-decoration: none;
   color: #111517;
 }
+
+
 
 .main {
   &__filters {
@@ -181,6 +186,9 @@ a {
     margin-bottom: 3em;
     margin-left: auto;
     margin-right: auto;
+    @media screen and(max-width:670px) {
+      flex-wrap: wrap;
+    }
   }
 
   &__filters-search {
@@ -208,8 +216,8 @@ a {
         background-repeat: no-repeat;
         display: block;
         position: absolute;
-        top: 4em;
-        margin-left: 1%;
+        top: 5em;
+        margin-left: 1em;
         width: 1.2em;
         height: 1.2em;
         color: #848484;
@@ -220,7 +228,7 @@ a {
   &__list {
     list-style-type: none;
     display: grid;
-    grid-template-columns: repeat(4, minmax(16.5em, 16em));
+    grid-template-columns: repeat(auto-fill, minmax(16.5em, 16em));
     gap: 4.6em;
     justify-content: center;
     max-width: 1286px;
