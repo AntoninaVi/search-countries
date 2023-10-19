@@ -48,8 +48,11 @@ export default {
 </script>
 
 <style lang="scss">
-.wrapper{
+.wrapper {
   padding: 1em 1em 4em;
+  @media screen and(max-width:412px) {
+    padding: 0;
+  }
 }
 .main {
   &__navbar {

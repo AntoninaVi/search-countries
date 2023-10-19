@@ -12,7 +12,12 @@
               />
               <span class="main__filters-search-input-el"></span>
             </div>
-            <v-col cols="6" md="6" lg="2" class="main__filters-select-wrapper custom-select ">
+            <v-col
+              cols="6"
+              md="6"
+              lg="2"
+              class="main__filters-select-wrapper custom-select"
+            >
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
@@ -60,8 +65,8 @@
                 </p>
                 <p class="main__list-item-info-text">
                   <span class="main__list-item-info-text-label"
-                    >Population: </span
-                  >
+                    >Population:
+                  </span>
                   <span class="main__list-item-info-text-value">{{
                     country.population
                   }}</span>
@@ -160,7 +165,7 @@ body {
   color: #111517;
   font-style: normal;
 }
-.custom-select{
+.custom-select {
   padding: 0 !important;
   flex-basis: max-content !important;
 }
@@ -175,8 +180,6 @@ a {
   text-decoration: none;
   color: #111517;
 }
-
-
 
 .main {
   &__filters {
@@ -221,6 +224,9 @@ a {
         width: 1.2em;
         height: 1.2em;
         color: #848484;
+        @media screen and(max-width:670px) {
+          top: 4em;
+        }
       }
     }
   }

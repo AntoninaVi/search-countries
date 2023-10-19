@@ -155,13 +155,11 @@ export default {
 };
 </script>
 <style lang="scss">
-
 .country__container {
   max-width: 1286px;
   margin-left: auto;
   margin-right: auto;
-  padding: 2em 1em;
- 
+  padding: 4em 1em;
 }
 a {
   text-decoration: none;
@@ -178,6 +176,10 @@ a {
     margin-top: 3em;
     box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.03);
     border-radius: 5px;
+    @media screen and(max-width:670px) {
+      max-width: 40em;
+      min-height: 13em;
+    }
   }
 
   &__title {
@@ -190,7 +192,11 @@ a {
   &__info {
     display: grid;
     grid-template-columns: 50% 45%;
+    gap: 1em;
     align-items: center;
+    @media screen and(max-width:1023px) {
+      grid-template-columns: 100%;
+    }
   }
   &__info-data {
     font-weight: 300;
@@ -206,12 +212,23 @@ a {
     grid-template-columns: 1fr 1fr;
     column-gap: 4em;
     margin-bottom: 4.2em;
+    @media screen and(max-width:1200px) {
+      column-gap: 1em;
+    }
+    @media screen and(max-width:670px) {
+      grid-template-columns: 1fr;
+    }
   }
   &__info-item {
     font-size: 16px;
     font-weight: 600;
     line-height: 32px;
     white-space: nowrap;
+
+    @media screen and(max-width:500px) {
+      font-size: 14px;
+      white-space: pre-line;
+    }
   }
 
   &__info-borders {
@@ -223,6 +240,11 @@ a {
     font-weight: 600;
     line-height: 24px;
     white-space: nowrap;
+    @media screen and(max-width:670px) {
+      flex-direction: column;
+      gap: 1em;
+      align-items: baseline;
+    }
   }
 
   &__info-borders-list {
@@ -231,6 +253,9 @@ a {
     flex-wrap: wrap;
     gap: 0.6em;
     list-style-type: none;
+     @media screen and(max-width:670px){
+       padding: 0!important;
+     }
   }
 
   &__info-borders-list-item {
@@ -276,6 +301,13 @@ a {
   padding: 0.7em;
   border-radius: 6px;
   box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.29);
+  @media screen and(max-width:1023px) {
+    margin: 0;
+  }
+  @media screen and(max-width:670px) {
+    max-width: 6.5em;
+    padding: 0.3em;
+  }
 }
 .material-icons {
   margin-right: 0.6rem;
