@@ -85,10 +85,11 @@
                 </p>
               </div>
             </div>
-          </div>
-          <p v-if="filteredCountries.length === 0">
+              <p v-if="filteredCountries.length === 0">
             Sorry, country wasn't found
           </p>
+          </div>
+        
           <button class="main__list-button primary" @click="showMore">
             Show More
           </button>
