@@ -1,99 +1,106 @@
 <template>
-  <div>
-    <div :class="{ dark: darkMode, light: !darkMode }">
-      <div class="wrapper background">
-        <div class="main__container">
-          <div class="main__filters">
-            <div class="main__filters-search">
-              <input
-                class="main__filters-search-input primary"
-                v-model="searchTerm"
-                placeholder="Search for a country…"
-              />
-              <span class="main__filters-search-input-el"></span>
-            </div>
-            <v-col
-              cols="6"
-              md="6"
-              lg="2"
-              class="main__filters-select-wrapper custom-select"
-            >
-              <v-menu offset-y>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-text-field
-                    v-model="selectedContinent"
-                    label="Filter by Region"
-                    dense
-                    solo
-                    v-bind="attrs"
-                    v-on="on"
-                    class=""
-                    append-icon="mdi-chevron-down"
-                  >
-                  </v-text-field>
-                </template>
-                <v-list class="primary">
-                  <v-list-item
-                    v-for="continent in continents"
-                    :key="continent"
-                    @click="selectContinent(continent)"
-                  >
-                    <v-list-item-title>{{ continent }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-            </v-col>
+  <div :class="{ dark: darkMode, light: !darkMode }">
+    <div class="wrapper background">
+      <div class="main__container">
+        <div class="main__filters">
+          <div class="main__filters-search">
+            <input
+              class="main__filters-search-input primary"
+              v-model="searchTerm"
+              placeholder="Search for a country…"
+            />
+            <span class="main__filters-search-input-el"></span>
           </div>
+          <v-col
+            cols="6"
+            md="6"
+            lg="2"
+            class="main__filters-select-wrapper custom-select"
+          >
+            <v-menu offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="selectedContinent"
+                  label="Filter by Region"
+                  dense
+                  solo
+                  v-bind="attrs"
+                  v-on="on"
+                  class=""
+                  append-icon="mdi-chevron-down"
+                >
+                </v-text-field>
+              </template>
+              <v-list class="primary">
+                <v-list-item
+                  v-for="continent in continents"
+                  :key="continent"
+                  @click="selectContinent(continent)"
+                >
+                  <v-list-item-title>{{ continent }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </v-col>
+        </div>
 
-          <div class="main__list">
-            <div
-              class="main__list-item primary"
-              v-for="country in displayedCountries"
-              :key="country.cca3"
-            >
-              <router-link :to="'/country/' + country.cca3">
-                <img
-                  :alt="`Flag of ${country.name.common}`"
-                  class="main__list-item-flag"
-                  :src="country.flags.png"
-                />
-              </router-link>
+        <v-progress-circular
+          v-if="isLoading"
+          :size="94"
+          :width="10"
+          indeterminate
+          color="green"
+          class="loader"
+        ></v-progress-circular>
 
-              <div class="main__list-item-info">
-                <p class="main__list-item-info-title">
-                  {{ country.name.common }}
-                </p>
-                <p class="main__list-item-info-text">
-                  <span class="main__list-item-info-text-label"
-                    >Population:
-                  </span>
-                  <span class="main__list-item-info-text-value">{{
-                    country.population
-                  }}</span>
-                </p>
-                <p class="main__list-item-info-text">
-                  <span class="main__list-item-info-text-label">Region: </span>
-                  <span class="main__list-item-info-text-value">{{
-                    country.region
-                  }}</span>
-                </p>
-                <p class="main__list-item-info-text">
-                  <span class="main__list-item-info-text-label">Capital: </span>
-                  <span class="main__list-item-info-text-value">{{
-                    country.capital.join(", ")
-                  }}</span>
-                </p>
-              </div>
+        <div class="main__list">
+          <div
+            class="main__list-item primary"
+            v-for="country in displayedCountries"
+            :key="country.cca3"
+          >
+            <router-link :to="'/country/' + country.cca3">
+              <img
+                :alt="`Flag of ${country.name.common}`"
+                class="main__list-item-flag"
+                :src="country.flags.png"
+              />
+            </router-link>
+
+            <div class="main__list-item-info">
+              <p class="main__list-item-info-title">
+                {{ country.name.common }}
+              </p>
+              <p class="main__list-item-info-text">
+                <span class="main__list-item-info-text-label"
+                  >Population:
+                </span>
+                <span class="main__list-item-info-text-value">{{
+                  country.population
+                }}</span>
+              </p>
+              <p class="main__list-item-info-text">
+                <span class="main__list-item-info-text-label">Region: </span>
+                <span class="main__list-item-info-text-value">{{
+                  country.region
+                }}</span>
+              </p>
+              <p class="main__list-item-info-text">
+                <span class="main__list-item-info-text-label">Capital: </span>
+                <span class="main__list-item-info-text-value">{{
+                  country.capital.join(", ")
+                }}</span>
+              </p>
             </div>
-              <p v-if="filteredCountries.length === 0">
+          </div>
+          <p class="error-message" v-if="filteredCountries.length === 0">
             Sorry, country wasn't found
           </p>
-          </div>
-        
-          <button class="main__list-button primary" @click="showMore">
-            Show More
-          </button>
         </div>
+
+        <button class="main__list-button primary" @click="showMore">
+          Show More
+        </button>
       </div>
     </div>
   </div>
@@ -101,9 +108,9 @@
 
 <script>
 export default {
-  components: {},
   data() {
     return {
+      isLoading: true,
       selectedContinent: "",
       continents: ["Africa", "Asia", "Europe", "Oceania", "Americas"],
       searchTerm: "",
@@ -116,22 +123,17 @@ export default {
       return this.$store.state.countries;
     },
     filteredCountries() {
-      let filtered = this.countries;
+      return this.countries.filter((country) => {
+        const byContinent =
+          !this.selectedContinent || country.region === this.selectedContinent;
+        const bySearch =
+          !this.searchTerm ||
+          country.name.common
+            .toLowerCase()
+            .includes(this.searchTerm.toLowerCase());
 
-      if (this.selectedContinent) {
-        filtered = filtered.filter(
-          (country) => country.region === this.selectedContinent
-        );
-      }
-
-      if (this.searchTerm) {
-        const searchTermLC = this.searchTerm.toLowerCase();
-        filtered = filtered.filter((country) =>
-          country.name.common.toLowerCase().includes(searchTermLC)
-        );
-      }
-
-      return filtered;
+        return byContinent && bySearch;
+      });
     },
     displayedCountries() {
       return this.filteredCountries.slice(0, this.visibleCountries);
@@ -150,7 +152,14 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("fetchCountries");
+    this.$store
+      .dispatch("fetchCountries")
+      .then(() => {
+        this.isLoading = false;
+      })
+      .catch((error) => {
+        console.error("Error loading countries:", error);
+      });
   },
 };
 </script>
@@ -190,7 +199,7 @@ a {
     margin-bottom: 3em;
     margin-left: auto;
     margin-right: auto;
-    @media screen and(max-width:670px) {
+    @media screen and(max-width:712px) {
       flex-wrap: wrap;
     }
   }
@@ -225,7 +234,7 @@ a {
         width: 1.2em;
         height: 1.2em;
         color: #848484;
-        @media screen and(max-width:670px) {
+        @media screen and(max-width:412px) {
           top: 4em;
         }
       }
@@ -258,9 +267,7 @@ a {
   }
 
   &__list-item-info {
-    padding-top: 1.5em;
-    padding-left: 1.4em;
-    padding-bottom: 3em;
+    padding: 1em 1.4em 1em;
 
     &-title {
       font-size: 18px;
@@ -298,6 +305,15 @@ a {
       background-color: #dddddd;
       transition: ease-in 0.3s;
     }
+  }
+}
+.loader {
+  position: absolute;
+  top: 10em;
+  left: 46%;
+  @media screen and(max-width:540px) {
+    top: 4em;
+    left: 37%;
   }
 }
 </style>
