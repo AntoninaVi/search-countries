@@ -5,10 +5,10 @@
         <div class="main__navbar-content">
           <h1 class="main__title">Where in the world?</h1>
           <button class="theme-button" @click="toggleTheme">
-            <span class="theme-icon" v-if="!isDarkTheme">🌞</span>
-            <span class="theme-icon" v-else>🌙</span>
-            <span class="theme-text" v-if="!isDarkTheme">Light Mode</span>
-            <span class="theme-text" v-else>Dark Mode</span>
+            <span class="theme-icon" v-if="!isDarkTheme">☾</span>
+            <span class="theme-icon" v-else>☀</span>
+            <span class="theme-text" v-if="!isDarkTheme">Dark Mode</span>
+            <span class="theme-text" v-else>Light Mode</span>
           </button>
         </div>
       </div>
@@ -126,13 +126,15 @@ body {
   .custom-select-dropdown,
   .app-bar,
   .main__list-button,
-  .primary,
-  .material-icons {
+  .back-button,
+  .material-icons,
+  .country__info-borders-list-item {
     background-color: #2b3844;
       color: #fff;
   }
   .custom-select-label,
-  .country__info-borders-list-item a {
+  .country__info-borders-list-item a,
+  .back-button span{
     color: #fff;
   }
   .custom-select-container,

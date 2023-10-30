@@ -131,7 +131,9 @@ export default {
   margin: 0;
   box-sizing: border-box;
 }
-
+.wrapper{
+  padding-bottom:2em ;
+}
 .custom-select {
   padding: 0 !important;
   flex-basis: max-content !important;

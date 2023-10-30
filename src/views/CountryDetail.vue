@@ -2,60 +2,65 @@
   <div>
     <div class="wrapper background">
       <div class="country__container background">
-        <router-link to="/" class="primary">
+        <router-link to="/" class="back-button">
           <span class="country__button-back">
             <i class="material-icons">arrow_back</i>
-            <span :class="[$vuetify.theme.dark ? 'white--text' : 'primary']">
-              Back
-            </span>
+            Back
           </span>
         </router-link>
-        <div class="country__info" v-if="country">
+        <div class="country__info" v-if="countryDetail">
           <img
-            :alt="`Flag of ${country.name.common}`"
+            :alt="`Flag of ${countryDetail.name.common}`"
             class="country__flag"
-            :src="country.flags.png"
+            :src="countryDetail.flags.png"
           />
           <div class="country__info-items">
-            <h2 class="country__title">{{ country.name.common }}</h2>
+            <h2 class="country__title">{{ countryDetail.name.common }}</h2>
             <div class="country__info-items-text">
               <p class="country__info-item">
-                Native Name: {{ formatNativeName(country.name.nativeName) }}
+                Native Name:
+                {{ formatNativeName(countryDetail.name.nativeName) }}
               </p>
               <p class="country__info-item">
                 Population:
-                <span class="country__info-data">{{ country.population }}</span>
+                <span class="country__info-data">{{
+                  countryDetail.population
+                }}</span>
               </p>
               <p class="country__info-item">
                 Region:
-                <span class="country__info-data">{{ country.region }}</span>
+                <span class="country__info-data">{{
+                  countryDetail.region
+                }}</span>
               </p>
               <p class="country__info-item">
                 Sub Region:
-                <span class="country__info-data">{{ country.subregion }}</span>
+                <span class="country__info-data">{{
+                  countryDetail.subregion
+                }}</span>
               </p>
               <p class="country__info-item">
                 Capital:
                 <span class="country__info-data">{{
-                  country.capital.join(", ")
+                  countryDetail.capital.join(", ")
                 }}</span>
               </p>
               <p class="country__info-item">
                 Top Level Domain:
                 <span class="country__info-data">{{
-                  country.tld.join(", ")
+                  countryDetail.tld.join(", ")
                 }}</span>
               </p>
               <p class="country__info-item">
                 Currencies:
                 <span class="country__info-data">{{
-                  getCurrenciesList(country.currencies)
+                  getCurrenciesList(countryDetail.currencies)
                 }}</span>
               </p>
               <p class="country__info-item">
                 Languages:
                 <span class="country__info-data">{{
-                  getLanguagesList(country.languages)
+                  getLanguagesList(countryDetail.languages)
                 }}</span>
               </p>
             </div>
@@ -64,14 +69,13 @@
               Border Countries: &nbsp;
               <ul class="country__info-borders-list">
                 <li
-                  class="country__info-borders-list-item primary"
-                  :class="{ primary: $vuetify.theme.dark }"
-                  v-for="border in borderCountries"
+                  class="country__info-borders-list-item"
+                  v-for="border in countryDetail.borders"
                   :key="border"
                 >
-                  <router-link :to="'/country/' + border">{{
-                    getCountryNameByCode(border)
-                  }}</router-link>
+                  <router-link :to="'/country/' + border">
+                    {{ getCountryNameByCode(border) }}
+                  </router-link>
                 </li>
               </ul>
             </div>
@@ -83,24 +87,37 @@
 </template>
 
 <script>
+import axios from "axios";
+export const API_BASE_URL = "https://restcountries.com/v3.1";
+
 export default {
   name: "CountryDetail",
+  data() {
+    return {
+      countryDetail: null,
+    };
+  },
+  beforeRouteEnter(to, from, next) {
+    const countryCode = to.params.code;
+
+    axios
+      .get(`${API_BASE_URL}/alpha?codes=${countryCode}`)
+      .then((response) => {
+        next((vm) => vm.setData(response.data[0]));
+      })
+      .catch((error) => {
+        next(false);
+      });
+  },
   computed: {
-    country() {
-      const countryCode = this.$route.params.code;
-      return (
-        this.$store.getters.getCountryByCode(countryCode) ||
-        this.loadCountryFromLocalStorage(countryCode)
-      );
-    },
     borderCountries() {
-      return this.country.borders || [];
+      return this.countryDetail ? this.countryDetail.borders || [] : [];
     },
   },
+
   methods: {
-    loadCountryFromLocalStorage(countryCode) {
-      const countryData = localStorage.getItem(`country_${countryCode}`);
-      return countryData ? JSON.parse(countryData) : null;
+    setData(data) {
+      this.countryDetail = data;
     },
     getCountryNameByCode(code) {
       const country = this.$store.getters.getCountryByCode(code);
@@ -124,29 +141,23 @@ export default {
         : "N/A";
     },
   },
-  created() {
-    if (this.country) {
-      localStorage.setItem(
-        `country_${this.country.cca3}`,
-        JSON.stringify(this.country)
-      );
-    }
-  },
 };
 </script>
 
 <style lang="scss" scoped>
+a {
+  text-decoration: none;
+  color: #111517;
+}
+.wrapper {
+  padding-bottom: 2em;
+}
 .country__container {
   max-width: 1286px;
   margin-left: auto;
   margin-right: auto;
   padding: 3em 1em;
 }
-a {
-  text-decoration: none;
-  color: #111517;
-}
-
 .country {
   &__flag {
     max-width: 35em;
@@ -240,6 +251,8 @@ a {
   }
 
   &__info-borders-list-item {
+    display: flex;
+    align-items: center;
     font-size: 14px;
     font-style: normal;
     font-weight: 300;
@@ -248,14 +261,10 @@ a {
     border: 0px solid #979797;
     box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.1);
     padding: 5px 10px;
+    cursor: pointer;
   }
 }
-// .country__info-borders-list-item a {
-//   color: #111517;
-// }
-// .v-application a {
-//   color: #72838b !important;
-// }
+
 //back button
 .country__button-back {
   display: flex;
@@ -269,7 +278,7 @@ a {
 //  .country__button-back i {
 //   color: #111517;
 // }
-.router-link-active {
+.back-button {
   display: flex;
   justify-content: center;
   align-items: unset;

@@ -25,6 +25,8 @@ export default new Vuex.Store({
       }
     },
   },
+  
+  
   getters: {
     getCountryByCode: (state) => (code) => {
       return state.countries.find((country) => country.cca3 === code);

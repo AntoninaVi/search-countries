@@ -15,10 +15,12 @@ const routes = [
     path: '/country/:code',
     name: 'CountryDetail',
     component: CountryDetail
+    
   }
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 
