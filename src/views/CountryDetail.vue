@@ -88,7 +88,7 @@
 
 <script>
 import axios from "axios";
-export const API_BASE_URL = "https://restcountries.com/v3.1";
+import { API_BASE_URL } from '@/store/api';
 
 export default {
   name: "CountryDetail",
@@ -116,6 +116,7 @@ export default {
   },
 
   methods: {
+    
     setData(data) {
       this.countryDetail = data;
     },

@@ -19,6 +19,7 @@ export default new Vuex.Store({
       try {
         const response = await fetch(`${API_BASE_URL}/all`);
         const countries = await response.json();
+        
         commit('setCountries', countries);
       } catch (error) {
         console.error('Error fetching countries:', error);

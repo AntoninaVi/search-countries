@@ -45,10 +45,10 @@
             :key="country.cca3"
             :country="country"
           />
+          <p class="error-message" v-if="filteredCountries.length === 0">
+            Sorry, country wasn't found
+          </p>
         </div>
-        <p class="error-message" v-if="filteredCountries.length === 0">
-          Sorry, country wasn't found
-        </p>
       </div>
 
       <button class="main__list-button primary" @click="showMore">
@@ -60,6 +60,7 @@
 
 <script>
 import CountryItem from "@/components/CountryItem";
+import { API_BASE_URL } from '../store/api';
 
 export default {
   components: {
@@ -131,8 +132,8 @@ export default {
   margin: 0;
   box-sizing: border-box;
 }
-.wrapper{
-  padding-bottom:2em ;
+.wrapper {
+  padding-bottom: 2em;
 }
 .custom-select {
   padding: 0 !important;
@@ -177,7 +178,7 @@ a {
       font-style: normal;
       font-weight: 400;
       line-height: 20px;
-     
+
       border-radius: 5px;
 
       border: none;
@@ -265,7 +266,6 @@ a {
     cursor: pointer;
     font-weight: 600;
     &:hover {
-    
       transition: ease-in 0.3s;
     }
   }
@@ -306,7 +306,7 @@ a {
   color: #111517;
   border-radius: 5px;
   overflow-y: auto;
- max-width: 12.5em;
+  max-width: 12.5em;
   width: 100%;
   margin-top: 4px;
 
