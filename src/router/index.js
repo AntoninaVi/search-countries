@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import CountryDetail from '../views/CountryDetail.vue'
+import Home from '@/views/Home.vue'
+import CountryDetail from '@/views/CountryDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -14,13 +14,13 @@ const routes = [
   {
     path: '/country/:code',
     name: 'CountryDetail',
-    component: CountryDetail 
-    
+    component: CountryDetail,
+    props: true,
+
   }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
   routes
 })
 

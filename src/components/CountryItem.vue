@@ -34,7 +34,7 @@
 <script>
 export default {
   props: {
-    country: Object, // Принимаем страну в качестве пропса
+    country: Object, 
   },
 };
 </script>

@@ -30,14 +30,7 @@
           </div>
         </div>
 
-        <v-progress-circular
-          v-if="isLoading"
-          :size="94"
-          :width="10"
-          indeterminate
-          color="green"
-          class="loader"
-        ></v-progress-circular>
+     
 
         <div class="main__list">
           <CountryItem

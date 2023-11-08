@@ -67,17 +67,16 @@
 
             <div class="country__info-borders" key="border">
               Border Countries: &nbsp;
-              <ul class="country__info-borders-list">
-                <li
-                  class="country__info-borders-list-item"
+              <div class="country__info-borders-list">
+                <router-link
                   v-for="border in countryDetail.borders"
                   :key="border"
+                  :to="'/country/' + border"
+                  class="country__info-borders-list-item"
                 >
-                  <router-link :to="'/country/' + border">
-                    {{ getCountryNameByCode(border) }}
-                  </router-link>
-                </li>
-              </ul>
+                  {{ getCountryNameByCode(border) }}
+                </router-link>
+              </div>
             </div>
           </div>
         </div>
@@ -88,7 +87,8 @@
 
 <script>
 import axios from "axios";
-import { API_BASE_URL } from '@/store/api';
+import { API_BASE_URL } from "@/store/api";
+import store from '@/store';
 
 export default {
   name: "CountryDetail",
@@ -116,7 +116,6 @@ export default {
   },
 
   methods: {
-    
     setData(data) {
       this.countryDetail = data;
     },
@@ -216,7 +215,7 @@ a {
     font-size: 16px;
     font-weight: 600;
     line-height: 32px;
-    white-space: nowrap;
+    white-space: pre-line;
 
     @media screen and(max-width:500px) {
       font-size: 14px;
