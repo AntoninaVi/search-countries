@@ -1,78 +1,59 @@
 <template>
-  <div id="app">
-    <header class="app-bar primary">
-      <div class="main__navbar">
-        <div class="main__navbar-content">
-          <h1 class="main__title">Where in the world?</h1>
-          <button class="theme-button" @click="toggleTheme">
-            <span class="theme-icon" v-if="!isDarkTheme">☾</span>
-            <span class="theme-icon" v-else>☀</span>
-            <span class="theme-text" v-if="!isDarkTheme">Dark Mode</span>
-            <span class="theme-text" v-else>Light Mode</span>
-          </button>
-        </div>
-      </div>
-    </header>
+  <v-app>
+    <v-app-bar class="primary">
+      <v-spacer>
+        <header>
+          <div class="main__container primary">
+            <nav class="main__navbar">
+              <div class="main__navbar-content">
+                <h1 class="main__title">Where in the world?</h1>
+                <v-btn class="theme-button" icon @click="toggleTheme">
+                  <v-icon
+                    v-if="!$vuetify.theme.dark"
+                    class="mr-1"
+                    color="blue-grey darken-4"
+                  >
+                    mdi-weather-night
+                  </v-icon>
+                  <v-icon v-else class="mr-1" color="yellow darken-3">
+                    mdi-weather-sunny
+                  </v-icon>
+                  <span class="theme-text" v-if="!$vuetify.theme.dark"
+                    >Dark Mode</span
+                  >
+                  <span class="theme-text" v-else>Light Mode</span>
+                </v-btn>
+              </div>
+            </nav>
+          </div>
+        </header>
+      </v-spacer>
+    </v-app-bar>
 
-    <main class="background">
-      <transition name="fade" mode="out-in">
-        <router-view></router-view>
-      </transition>
-    </main>
-  </div>
+    <v-main>
+      <router-view />
+    </v-main>
+  </v-app>
 </template>
 
 <script>
 export default {
   name: "App",
-  data() {
-    return {
-      isDarkTheme: false,
-    };
-  },
   methods: {
     toggleTheme() {
-      this.isDarkTheme = !this.isDarkTheme;
-      localStorage.setItem("theme", this.isDarkTheme ? "dark" : "light");
-      this.updateTheme();
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     },
-    updateTheme() {
-      if (this.isDarkTheme) {
-        document.body.classList.add("dark-theme");
-      } else {
-        document.body.classList.remove("dark-theme");
-      }
-    },
-  },
-  created() {
-    const savedTheme = localStorage.getItem("theme");
-    this.isDarkTheme = savedTheme === "dark";
-    this.updateTheme();
   },
 };
 </script>
 
 <style lang="scss">
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+.wrapper {
+  padding: 1em 1em 4em;
+  @media screen and(max-width:412px) {
+    padding: 0;
+  }
 }
-body {
-  font-family: "Nunito Sans", sans-serif;
-  color: #111517;
-  font-style: normal;
-  background-color: #fafafa;
-  transition: background-color 0.4s;
-}
-
-.app-bar {
-  background-color: #fff;
-  color: #111517;
-  padding: 1em;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 .main {
   &__navbar {
     max-width: 1286px;
@@ -92,56 +73,41 @@ body {
     font-style: normal;
     font-weight: 800;
     line-height: normal;
-    @media screen and(max-width: 430px) {
+    @media screen and(max-width:430px) {
       font-size: 14px;
     }
   }
 }
-
-.theme-button {
-  display: block;
-  width: 10em;
-  text-align: left;
-  background-color: transparent;
-  transition: background-color 0.3s;
-  border: none;
-  color: #111517;
-  cursor: pointer;
-
-  .theme-icon {
-    margin-right: 8px;
+.col-lg-2 {
+  padding: 0;
+}
+.v-input__slot {
+  padding: 12px !important;
+  max-width: 12.5em;
+  min-width: 12.5em;
+  width: 100%;
+  @media screen and (max-width: 670px) {
+    margin-top: 2.5em;
   }
 }
-
-.dark-theme {
-  background-color: #202c36;
+.theme--dark.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat)
+  > .v-input__control
+  > .v-input__slot {
   color: #fff;
-
-  .theme-button,
-  .main__title {
-    color: #fff;
-  }
-
-  .main__list-item,
-  .custom-select-dropdown,
-  .app-bar,
-  .main__list-button,
-  .back-button,
-  .material-icons,
-  .country__info-borders-list-item {
-    background-color: #2b3844;
-      color: #fff;
-  }
-  .custom-select-label,
-  .country__info-borders-list-item a,
-  .back-button span{
-    color: #fff;
-  }
-  .custom-select-container,
-  .custom-select-option,
-  .main__filters-search-input {
-    background-color: #2b3844;
-    color: #fff;
-  }
+  background-color: #2b3844;
+}
+.v-menu__content .menuable__content__active {
+  top: 10.5em;
+}
+.theme-text {
+  text-transform: none;
+}
+.theme-button {
+  display: block !important;
+  width: 10em !important;
+  text-align: left !important;
+  background-color: transparent !important;
+  transition: none !important;
+  border-radius: 5px !important;
 }
 </style>

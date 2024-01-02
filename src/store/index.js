@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { API_BASE_URL } from './api.js';
 
 Vue.use(Vuex);
 
@@ -8,27 +7,25 @@ export default new Vuex.Store({
   state: {
     countries: [],
     flags: {},
-
+    
   },
   mutations: {
     setCountries(state, countries) {
       state.countries = countries;
     },
+    
   },
   actions: {
     async fetchCountries({ commit }) {
       try {
-        const response = await fetch(`${API_BASE_URL}/all`);
+        const response = await fetch('https://restcountries.com/v3.1/all');
         const countries = await response.json();
-
         commit('setCountries', countries);
       } catch (error) {
         console.error('Error fetching countries:', error);
       }
     },
   },
-
-
   getters: {
     getCountryByCode: (state) => (code) => {
       return state.countries.find((country) => country.cca3 === code);
