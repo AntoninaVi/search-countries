@@ -1,5 +1,4 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/my-project/'
-    : '/'
+  outputDir: 'dist',
+  publicPath: process.env.NODE_ENV === 'production' ? '/search-countries/' : '/'
 }
